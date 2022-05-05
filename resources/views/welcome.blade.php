@@ -14,6 +14,15 @@
     </script>
     <title>{{ setting('site.title') }}</title>
     <style>
+        .bg-success {
+            background: #60FF9F !important;
+            color: black;
+        }
+
+        .bg-danger {
+            background: #F00090 !important;
+        }
+
         .card-chart {
             /* background: #1C1C1C85; */
             /* Rectangle 109 */
@@ -41,6 +50,7 @@
             position: fixed;
             top: 0px;
             left: 363px;
+            z-index: -1;
             border-radius: 50%;
             filter: blur(146.107px);
         }
@@ -53,6 +63,7 @@
             position: fixed;
             top: 189px;
             left: 314px;
+            z-index: -1;
             border-radius: 50%;
             filter: blur(146.107px);
         }
@@ -65,6 +76,7 @@
             height: 446.33px;
             left: 1623.31px;
             top: 510.11px;
+            z-index: -1;
 
             background: linear-gradient(261.63deg, #7000FF 4.87%, #06FFF0 87.02%);
             filter: blur(146.107px);
@@ -80,7 +92,7 @@
             height: 446.33px;
             left: 300.71px;
             top: 700.19px;
-
+            z-index: -1;
             background: linear-gradient(200.63deg, #7000FF 4.87%, #06FFF0 87.02%);
             filter: blur(146.107px);
             transform: rotate(173.72deg);
@@ -92,7 +104,7 @@
 
 <body>
     <!-- Optional JavaScript; choose one of the two! -->
-    <div class="container-fluid">
+    <div class="container">
 
         <div class="v5_3604"></div>
         <div class="v5_3606"></div>
@@ -101,14 +113,14 @@
         <div>
             <nav class="navbar text-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <div class="navbar-brand">
                         {{ setting('site.title') }}
-                    </a>
+                    </div>
                 </div>
             </nav>
         </div>
         <div class="row p-2">
-            <div class="col-8">
+            <div class="col-9">
                 <div class="card card-chart">
                     <div class="car-title">
                         <div class="row text-light p-4">
@@ -122,17 +134,66 @@
                                 Time EU : <span id="time_span_eu"></span>
                             </div>
                         </div>
+                        <div class="row text-light p-4">
+                            <h3>Portfolios Performance</h3>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id="chart">
                         </div>
                     </div>
                 </div>
+
+                <div class="pt-2">
+                    <a href="{{ setting('site.ads_bottom_url') }}">
+                        <img src="{{ setting('site.ads_bottom_image') }}" alt="..." class="img-fluid"
+                            style="border-radius: 20px">
+                    </a>
+                </div>
             </div>
-            <div class="col-4">
-                <div class="card-chart">
-                    <div class="card-body">
+            <div class="col-3">
+                <div class="info ">
+                    <div class="card card-chart text-light">
+                        <div class="card-body">
+                            <span>Trend : <br><br></span>
+                            <div class="pb-2">
+                                <div class="card card-chart bg-danger">
+                                    <div class="card-body">
+                                        {!! setting('site.trend_warning_info') !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="card card-chart bg-success">
+                                    <div class="card-body">
+                                        {!! setting('site.trend_info') !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span>Correction : <br><br></span>
+                            <div class="pb-2">
+                                <div class="card card-chart bg-danger">
+                                    <div class="card-body">
+                                        {!! setting('site.cor_warn_info') !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="card card-chart bg-success">
+                                    <div class="card-body">
+                                        {!! setting('site.cor_info') !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="pt-2">
+                    <a href="{{ setting('site.ads_url_square') }}"><img src="{{ setting('site.ads_image_square') }}"
+                            alt="..." class="img-fluid" style="border-radius: 20px">
+                    </a>
                 </div>
             </div>
         </div>
@@ -286,7 +347,7 @@
             }],
             chart: {
                 type: 'candlestick',
-                height: 550
+                height: 500
             },
             xaxis: {
                 type: 'datetime',
@@ -344,6 +405,24 @@
                     fontSize: '25px',
                     color: 'white'
                 },
+            },
+            plotOptions: {
+                candlestick: {
+                    wick: {
+                        useFillColor: true,
+                    },
+                    colors: {
+                        upward: '#60FF9F',
+                        downward: '#F00090'
+                    },
+                },
+                bar: {
+                    borderRadius: 10,
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
+                }
+
             }
         };
 
