@@ -150,7 +150,7 @@
 
                 <div class="pt-2">
                     <a href="{{ setting('site.ads_bottom_url') }}">
-                        <img src="{{ setting('site.ads_bottom_image') }}" alt="..." class="img-fluid"
+                        <img src="storage/{{ setting('site.ads_bottom_image') }}" alt="..." class="img-fluid"
                             style="border-radius: 20px">
                     </a>
                 </div>
@@ -195,7 +195,7 @@
                     </div>
                 </div>
                 <div class="pt-2">
-                    <a href="{{ setting('site.ads_url_square') }}"><img src="{{ setting('site.ads_image_square') }}"
+                    <a href="storage/{{ setting('site.ads_url_square') }}"><img src="{{ setting('site.ads_image_square') }}"
                             alt="..." class="img-fluid" style="border-radius: 20px">
                     </a>
                 </div>
