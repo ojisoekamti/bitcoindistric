@@ -38,7 +38,7 @@
             height: 446px;
             background: linear-gradient(rgba(112, 0, 255, 1), rgba(6, 255, 239, 1));
             opacity: 1;
-            position: absolute;
+            position: fixed;
             top: 0px;
             left: 363px;
             border-radius: 50%;
@@ -50,7 +50,7 @@
             height: 320px;
             background: linear-gradient(rgba(3, 250, 117, 1), rgba(6, 255, 239, 1));
             opacity: 1;
-            position: absolute;
+            position: fixed;
             top: 189px;
             left: 314px;
             border-radius: 50%;
@@ -60,7 +60,7 @@
         .eclipse_6 {
             /* Ellipse 6 */
 
-            position: absolute;
+            position: fixed;
             width: 380.29px;
             height: 446.33px;
             left: 1623.31px;
@@ -75,7 +75,7 @@
         .eclipse_7 {
             /* Ellipse 6 */
 
-            position: absolute;
+            position: fixed;
             width: 380.29px;
             height: 446.33px;
             left: 300.71px;
