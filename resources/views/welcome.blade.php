@@ -19,6 +19,10 @@
             color: black;
         }
 
+        img::before {
+            background: #06FFF0
+        }
+
         .bg-danger {
             background: #F00090 !important;
         }
