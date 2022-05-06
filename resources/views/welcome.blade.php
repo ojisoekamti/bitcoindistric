@@ -219,8 +219,9 @@
         fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
             .then(response => response.text())
             .then(result => {
-                console.log(result)
+                console.log("test 1", result)
                 result = JSON.parse(result);
+                console.log("test 2", result)
                 for (let i = 0; i < result.length; i++) {
                     const element = results[i];
                     seruesData.push({
@@ -230,7 +231,7 @@
                 }
             })
             .catch(error => console.log('error', error));
-
+        console.log("seriesData", seriesData)
         var options = {
             series: [{
                 data: seriesData
