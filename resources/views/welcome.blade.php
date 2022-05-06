@@ -210,7 +210,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        let results = []
+        var results = []
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
