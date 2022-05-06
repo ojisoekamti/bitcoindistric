@@ -210,6 +210,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
+        let results = []
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -217,11 +218,11 @@
 
         fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => results = result; console.log(result);)
             .catch(error => console.log('error', error));
         let seriesData = [];
-        for (let i = 0; i < result.length; i++) {
-            const element = result[i];
+        for (let i = 0; i < results.length; i++) {
+            const element = results[i];
             seruesData.push({
                 x: new Date(element[0]),
                 y: [element[1], element[2], element[3], element[4]]
