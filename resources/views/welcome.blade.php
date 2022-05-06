@@ -317,10 +317,6 @@
         };
         console.log(options);
         var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-        chart.updateSeries([{
-            data: seriesData
-        }]);
         chart.render();
     </script>
 
