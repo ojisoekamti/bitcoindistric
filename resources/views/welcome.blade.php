@@ -334,6 +334,7 @@
         }
         setInterval(updateTime, 1000);
         setInterval(() => {
+            let seriesData = [];
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow'
@@ -341,16 +342,17 @@
 
             fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
                 .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
-            let seriesData = [];
-            for (let i = 0; i < result.length; i++) {
-                const element = result[i];
-                seruesData.push({
-                    x: new Date(element[0]),
-                    y: [element[1], element[2], element[3], element[4]]
+                .then(result => {
+                    result = JSON.parse(result);
+                    for (let i = 0; i < result.length; i++) {
+                        var element = result[i];
+                        seriesData.push({
+                            x: new Date(element[0]),
+                            y: [element[1], element[2], element[3], element[4]]
+                        })
+                    }
                 })
-            }
+                .catch(error => console.log('error', error));
 
             chart.updateSeries([{
                 data: seriesData
