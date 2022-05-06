@@ -231,7 +231,7 @@
             .catch(error => console.log('error', error));
         var options = {
             series: [{
-                data: []
+                data: seriesData
             }],
             chart: {
                 type: 'candlestick',
@@ -315,11 +315,11 @@
         };
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
 
         chart.updateSeries([{
             data: seriesData
         }]);
+        chart.render();
     </script>
 
     <script>
