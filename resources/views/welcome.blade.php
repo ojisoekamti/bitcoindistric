@@ -319,9 +319,6 @@
             $.getJSON(url, function(response) {
 
                 let seriesData = [];
-                console.log("response 1 ",response)
-                response = JSON.parse(response);
-                console.log("response 2 ",response)
                 for (let i = 0; i < response.length; i++) {
                     var element = response[i];
                     seriesData.push({
