@@ -341,10 +341,10 @@
             var url = 'https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=50';
 
             $.getJSON(url, function(response) {
-
+                let seriesData = [];
                 response = JSON.parse(response);
                 for (let i = 0; i < response.length; i++) {
-                    var element = result[i];
+                    var element = response[i];
                     seriesData.push({
                         x: new Date(element[0]),
                         y: [element[1], element[2], element[3], element[4]]
@@ -355,7 +355,7 @@
                     data: seriesData
                 }])
             });
-        }, 1000 * 30);
+        }, 1000);
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
