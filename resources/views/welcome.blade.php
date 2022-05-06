@@ -379,15 +379,7 @@
         console.log(moment)
 
         function getData() {
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
 
-            fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
         }
 
 
@@ -402,68 +394,28 @@
         }
         setInterval(updateTime, 1000);
         setInterval(() => {
-            seriesData = [{
-                    x: new Date(1538812800000),
-                    y: [6619.43, 6620.35, 6610.05, 6615.53]
-                },
-                {
-                    x: new Date(1538814600000),
-                    y: [6615.53, 6617.93, 6610, 6615.19]
-                },
-                {
-                    x: new Date(1538816400000),
-                    y: [6615.19, 6621.6, 6608.2, 6620]
-                },
-                {
-                    x: new Date(1538818200000),
-                    y: [6619.54, 6625.17, 6614.15, 6620]
-                },
-                {
-                    x: new Date(1538820000000),
-                    y: [6620.33, 6634.15, 6617.24, 6624.61]
-                },
-                {
-                    x: new Date(1538821800000),
-                    y: [6625.95, 6626, 6611.66, 6617.58]
-                },
-                {
-                    x: new Date(1538823600000),
-                    y: [6619, 6625.97, 6595.27, 6598.86]
-                },
-                {
-                    x: new Date(1538825400000),
-                    y: [6598.86, 6598.88, 6570, 6587.16]
-                },
-                {
-                    x: new Date(1538827200000),
-                    y: [6588.86, 6600, 6580, 6593.4]
-                },
-                {
-                    x: new Date(1538829000000),
-                    y: [6593.99, 6598.89, 6585, 6587.81]
-                },
-                {
-                    x: new Date(1538830800000),
-                    y: [6587.81, 6592.73, 6567.14, 6578]
-                },
-                {
-                    x: new Date(1538832600000),
-                    y: [6578.35, 6581.72, 6567.39, 6579]
-                },
-                {
-                    x: new Date(1538834400000),
-                    y: [6579.38, 6580.92, 6566.77, 6575.96]
-                },
-                {
-                    x: new Date(1538836200000),
-                    y: [6575.96, 6589, 6571.77, 6588.92]
-                }
-            ]
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+            let seriesData = [];
+            for (let i = 0; i < result.length; i++) {
+                const element = result[i];
+                seruesData.push({
+                    x: new Date(element[0]),
+                    y: [element[1], element[2], element[3], element[4]]
+                })
+            }
 
             chart.updateSeries([{
                 data: seriesData
             }]);
-        }, 1000);
+        }, 1000 * 30);
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
