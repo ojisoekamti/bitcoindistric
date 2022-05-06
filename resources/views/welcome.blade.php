@@ -15,8 +15,8 @@
     <title>{{ setting('site.title') }}</title>
     <style>
         .bg-success {
-            /* background: #60FF9F !important; */
-            /* color: black; */
+            background: #60FF9F !important;
+            color: black;
         }
 
         img::before {
