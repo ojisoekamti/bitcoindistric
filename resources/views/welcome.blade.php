@@ -219,12 +219,9 @@
         fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
             .then(response => response.text())
             .then(result => {
-                console.log("test 1", result)
                 result = JSON.parse(result);
-                console.log("test 2", result)
                 for (let i = 0; i < result.length; i++) {
                     var element = result[i];
-                    console.log("element", element)
                     seriesData.push({
                         x: new Date(element[0]),
                         y: [element[1], element[2], element[3], element[4]]
@@ -232,10 +229,9 @@
                 }
             })
             .catch(error => console.log('error', error));
-        console.log("seriesData", seriesData)
         var options = {
             series: [{
-                data: seriesData
+                data: []
             }],
             chart: {
                 type: 'candlestick',
@@ -320,6 +316,10 @@
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
+
+        chart.updateSeries([{
+            data: seriesData
+        }]);
     </script>
 
     <script>
