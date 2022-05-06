@@ -342,7 +342,7 @@
 
             $.getJSON(url, function(response) {
 
-                response = JSON.parse(result);
+                response = JSON.parse(response);
                 for (let i = 0; i < response.length; i++) {
                     var element = result[i];
                     seriesData.push({
