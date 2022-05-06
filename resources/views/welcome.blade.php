@@ -216,7 +216,7 @@
             redirect: 'follow'
         };
 
-        fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=100", requestOptions)
+        fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=50", requestOptions)
             .then(response => response.text())
             .then(result => {
                 result = JSON.parse(result);
@@ -331,31 +331,31 @@
             document.getElementById('time_span_eu').innerHTML = get_Date_eu.format('YYYY-MM-DD HH:mm:ss');
         }
         setInterval(updateTime, 1000);
-        setInterval(() => {
-            let seriesData = [];
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
+        // setInterval(() => {
+        //     let seriesData = [];
+        //     var requestOptions = {
+        //         method: 'GET',
+        //         redirect: 'follow'
+        //     };
 
-            fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=100", requestOptions)
-                .then(response => response.text())
-                .then(result => {
-                    result = JSON.parse(result);
-                    for (let i = 0; i < result.length; i++) {
-                        var element = result[i];
-                        seriesData.push({
-                            x: new Date(element[0]),
-                            y: [element[1], element[2], element[3], element[4]]
-                        })
-                    }
-                })
-                .catch(error => console.log('error', error));
+        //     fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=100", requestOptions)
+        //         .then(response => response.text())
+        //         .then(result => {
+        //             result = JSON.parse(result);
+        //             for (let i = 0; i < result.length; i++) {
+        //                 var element = result[i];
+        //                 seriesData.push({
+        //                     x: new Date(element[0]),
+        //                     y: [element[1], element[2], element[3], element[4]]
+        //                 })
+        //             }
+        //         })
+        //         .catch(error => console.log('error', error));
 
-            chart.updateSeries([{
-                data: seriesData
-            }]);
-        }, 1000 * 30);
+        //     chart.updateSeries([{
+        //         data: seriesData
+        //     }]);
+        // }, 1000 * 30);
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
