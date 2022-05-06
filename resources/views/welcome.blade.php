@@ -225,7 +225,7 @@
                 for (let i = 0; i < result.length; i++) {
                     var element = result[i];
                     console.log("element", element)
-                    seruesData.push({
+                    seriesData.push({
                         x: new Date(element[0]),
                         y: [element[1], element[2], element[3], element[4]]
                     })
