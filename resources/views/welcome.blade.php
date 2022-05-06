@@ -216,7 +216,7 @@
             redirect: 'follow'
         };
 
-        fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
+        fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=100", requestOptions)
             .then(response => response.text())
             .then(result => {
                 result = JSON.parse(result);
@@ -340,7 +340,7 @@
                 redirect: 'follow'
             };
 
-            fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
+            fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=100", requestOptions)
                 .then(response => response.text())
                 .then(result => {
                     result = JSON.parse(result);
