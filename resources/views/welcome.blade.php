@@ -223,7 +223,7 @@
                 result = JSON.parse(result);
                 console.log("test 2", result)
                 for (let i = 0; i < result.length; i++) {
-                    const element = result[i];
+                    var element = result[i];
                     console.log("element", element)
                     seruesData.push({
                         x: new Date(element[0]),
