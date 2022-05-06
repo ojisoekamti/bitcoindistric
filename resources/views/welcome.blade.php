@@ -317,8 +317,11 @@
             var url = 'https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=50';
 
             $.getJSON(url, function(response) {
+
                 let seriesData = [];
+                console.log("response 1 ",response)
                 response = JSON.parse(response);
+                console.log("response 2 ",response)
                 for (let i = 0; i < response.length; i++) {
                     var element = response[i];
                     seriesData.push({
@@ -326,6 +329,7 @@
                         y: [element[1], element[2], element[3], element[4]]
                     })
                 }
+
                 chart.updateSeries([{
                     data: seriesData
                 }])
