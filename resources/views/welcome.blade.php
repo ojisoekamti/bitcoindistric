@@ -215,117 +215,93 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            let seriesData = [];
-            var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-            };
-
-            fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=50", requestOptions)
-                .then(response => response.text())
-                .then(result => {
-                    result = JSON.parse(result);
-                    for (let i = 0; i < result.length; i++) {
-                        var element = result[i];
-                        seriesData.push({
-                            x: new Date(element[0]),
-                            y: [element[1], element[2], element[3], element[4]]
-                        })
-                    }
-                })
-                .catch(error => console.log('error', error));
-
-            console.log('seriesData', seriesData)
-            var options = {
-                series: [{
-                    data: seriesData
-                }],
-                chart: {
-                    type: 'candlestick',
-                    height: 500
-                },
-                xaxis: {
-                    type: 'datetime',
-                    labels: {
-                        show: true,
-                        rotate: -45,
-                        rotateAlways: false,
-                        hideOverlappingLabels: true,
-                        showDuplicates: false,
-                        trim: false,
-                        minHeight: undefined,
-                        maxHeight: 120,
-                        style: {
-                            colors: '#fff',
-                            fontSize: '12px',
-                            fontFamily: 'Helvetica, Arial, sans-serif',
-                            fontWeight: 400,
-                            cssClass: 'apexcharts-xaxis-label',
-                        },
-                        offsetX: 0,
-                        offsetY: 0,
-                        format: undefined,
-                        formatter: undefined,
-                        datetimeUTC: true,
-                        datetimeFormatter: {
-                            year: 'yyyy',
-                            month: "MMM 'yy",
-                            day: 'dd MMM',
-                            hour: 'HH:mm',
-                        },
+        var options = {
+            series: [{
+                data: []
+            }],
+            chart: {
+                type: 'candlestick',
+                height: 500
+            },
+            xaxis: {
+                type: 'datetime',
+                labels: {
+                    show: true,
+                    rotate: -45,
+                    rotateAlways: false,
+                    hideOverlappingLabels: true,
+                    showDuplicates: false,
+                    trim: false,
+                    minHeight: undefined,
+                    maxHeight: 120,
+                    style: {
+                        colors: '#fff',
+                        fontSize: '12px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        fontWeight: 400,
+                        cssClass: 'apexcharts-xaxis-label',
                     },
-                },
-                yaxis: {
-                    tooltip: {
-                        enabled: true
-                    },
-                    labels: {
-                        style: {
-                            colors: '#fff',
-                            fontSize: '12px',
-                            fontFamily: 'Helvetica, Arial, sans-serif',
-                            fontWeight: 400,
-                            cssClass: 'apexcharts-xaxis-label',
-                        }
-                    },
-                },
-                title: {
-                    text: undefined,
-                    align: 'center',
-                    margin: 10,
                     offsetX: 0,
                     offsetY: 0,
-                    floating: false,
-                    style: {
-                        fontSize: '25px',
-                        color: 'white'
+                    format: undefined,
+                    formatter: undefined,
+                    datetimeUTC: true,
+                    datetimeFormatter: {
+                        year: 'yyyy',
+                        month: "MMM 'yy",
+                        day: 'dd MMM',
+                        hour: 'HH:mm',
                     },
                 },
-                plotOptions: {
-                    candlestick: {
-                        wick: {
-                            useFillColor: true,
-                        },
-                        colors: {
-                            upward: '#60FF9F',
-                            downward: '#F00090'
-                        },
-                    },
-                    bar: {
-                        borderRadius: 10,
-                        dataLabels: {
-                            position: 'top', // top, center, bottom
-                        },
+            },
+            yaxis: {
+                tooltip: {
+                    enabled: true
+                },
+                labels: {
+                    style: {
+                        colors: '#fff',
+                        fontSize: '12px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        fontWeight: 400,
+                        cssClass: 'apexcharts-xaxis-label',
                     }
-
+                },
+            },
+            title: {
+                text: undefined,
+                align: 'center',
+                margin: 10,
+                offsetX: 0,
+                offsetY: 0,
+                floating: false,
+                style: {
+                    fontSize: '25px',
+                    color: 'white'
+                },
+            },
+            plotOptions: {
+                candlestick: {
+                    wick: {
+                        useFillColor: true,
+                    },
+                    colors: {
+                        upward: '#60FF9F',
+                        downward: '#F00090'
+                    },
+                },
+                bar: {
+                    borderRadius: 10,
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
                 }
-            };
-            console.log(options);
-            var chart = new ApexCharts(document.querySelector("#chart"), options);
-            chart.render();
-            console.log("ready!");
-        });
+
+            }
+        };
+        console.log(options);
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
 
         function updateTime() {
             var cTime = moment().zone("-08:00").format('LLLL');
@@ -351,11 +327,10 @@
                     })
                 }
                 chart.updateSeries([{
-                    name: 'Sales',
                     data: seriesData
                 }])
             });
-        }, 1000);
+        }, 1000 * 20);
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
