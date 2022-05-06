@@ -195,8 +195,9 @@
                     </div>
                 </div>
                 <div class="pt-2">
-                    <a href="{{ setting('site.ads_url_square') }}"><img src="storage/{{ setting('site.ads_image_square') }}"
-                            alt="..." class="img-fluid" style="border-radius: 20px">
+                    <a href="{{ setting('site.ads_url_square') }}"><img
+                            src="storage/{{ setting('site.ads_image_square') }}" alt="..." class="img-fluid"
+                            style="border-radius: 20px">
                     </a>
                 </div>
             </div>
@@ -437,6 +438,19 @@
     <script>
         console.log(moment)
 
+        function getData() {
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+            };
+
+            fetch("https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+
+
         function updateTime() {
             var cTime = moment().zone("-08:00").format('LLLL');
             let get_Date = moment.tz(new Date(), 'Asia/Jakarta');
@@ -447,6 +461,7 @@
             document.getElementById('time_span_eu').innerHTML = get_Date_eu.format('YYYY-MM-DD HH:mm:ss');
         }
         setInterval(updateTime, 1000);
+        setInterval(getData, 1000);
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
