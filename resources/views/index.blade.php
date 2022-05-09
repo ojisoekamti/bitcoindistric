@@ -14,6 +14,10 @@
     </script>
     <title>{{ setting('site.title') }}</title>
     <style>
+        .container {
+            max-width: 1600px;
+        }
+
         .bg-success {
             background: #60FF9F !important;
             color: black;
@@ -140,6 +144,31 @@
                         </div>
                         <div class="row text-light p-4">
                             <h3>Portfolios Performance</h3>
+                            <div class="clear">
+                                <div class="btn-group">
+                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false" id="market-show">
+                                        BTCUSDT
+                                    </button>
+                                    <ul class="dropdown-menu" id="market">
+
+                                    </ul>
+                                </div>
+                                <div class="float-end">
+                                    <div class="btn-group" role="group" aria-label="First group">
+                                        <button type="button" id="1h" class="btn btn-outline-secondary btn-sm"
+                                            value="1h">1H</button>
+                                        <button type="button" id="1d" class="btn btn-outline-secondary btn-sm"
+                                            value="1d">1D</button>
+                                        <button type="button" id="3d" class="btn btn-outline-secondary btn-sm"
+                                            value="3d">3D</button>
+                                        <button type="button" id="1m" class="btn btn-outline-secondary btn-sm"
+                                            value="1m">1M</button>
+                                        <button type="button" id="1y" class="btn btn-outline-secondary btn-sm"
+                                            value="1y">1Y</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -199,6 +228,7 @@
                             src="storage/{{ setting('site.ads_image_square') }}" alt="..." class="img-fluid"
                             style="border-radius: 20px">
                     </a>
+
                 </div>
             </div>
         </div>
@@ -212,9 +242,25 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-    </script>
+        var settings = {
+            "url": "{{ Request::url() }}/api/getexchangeprops",
+            "method": "GET",
+            "timeout": 0,
+        };
 
-    <script>
+        $.ajax(settings).done(function(response) {
+            console.log(response);
+            for (let i = 0; i < response.length; i++) {
+                const element = response[i];
+                if(element.market=="BTCUSDT"){
+                    $("#market").append(' <li><a class = "dropdown-item active" href="#" id="' + element.market + '" > ' + element.market + ' </a></li> ');
+                    continue;
+                }
+                $("#market").append(' <li><a class = "dropdown-item" href="#" id="' + element.market + '"  > ' + element.market + ' </a></li> ');
+
+            }
+        });
+        //document.getElementById("market-show").innerHTML = "whatever";
         var options = {
             series: [{
                 data: []
@@ -299,22 +345,29 @@
 
             }
         };
-        console.log(options);
+        var dataexchange = [];
+        var settings = {
+            "url": "https://api1.binance.com/api/v1/exchangeInfo",
+            "method": "GET",
+            "timeout": 0,
+        };
+        $.ajax(settings).done(function(response) {
+            dataexchange = response
+        });
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
 
         function updateTime() {
-            var cTime = moment().zone("-08:00").format('LLLL');
             let get_Date = moment.tz(new Date(), 'Asia/Jakarta');
             let get_Date_us = moment.tz(new Date(), 'America/New_York');
-            let get_Date_eu = moment.tz(new Date(), 'America/New_York');
+            let get_Date_eu = moment.tz(new Date(), "Europe/Berlin");
             document.getElementById('time_span').innerHTML = get_Date.format('YYYY-MM-DD HH:mm:ss');
             document.getElementById('time_span_us').innerHTML = get_Date_us.format('YYYY-MM-DD HH:mm:ss');
             document.getElementById('time_span_eu').innerHTML = get_Date_eu.format('YYYY-MM-DD HH:mm:ss');
         }
         setInterval(updateTime, 1000);
         setInterval(() => {
-            var url = 'https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=50';
+            var url = '' //'https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=50';
 
             $.getJSON(url, function(response) {
 
@@ -322,7 +375,7 @@
                 for (let i = 0; i < response.length; i++) {
                     var element = response[i];
                     seriesData.push({
-                        x: new Date(element[0]),
+                        x: moment.tz(new Date(element[0]), 'Asia/Jakarta'),
                         y: [element[1], element[2], element[3], element[4]]
                     })
                 }
@@ -335,14 +388,12 @@
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
-    </script>
-    -->
+    </script> --}}
 </body>
 
 </html>
