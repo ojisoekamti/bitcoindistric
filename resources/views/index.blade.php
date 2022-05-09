@@ -15,7 +15,7 @@
     <title>{{ setting('site.title') }}</title>
     <style>
         .container {
-            max-width: 1600px;
+            max-width: 1364px;
         }
 
         .bg-success {
