@@ -155,7 +155,7 @@
                                     </ul>
                                 </div>
                                 <div class="float-end">
-                                    <div class="btn-group" role="group" aria-label="First group">
+                                    <div class="btn-group interval" role="group" aria-label="First group">
                                         <button type="button" id="1h" class="btn btn-outline-secondary btn-sm active"
                                             value="1h">1H</button>
                                         <button type="button" id="1d" class="btn btn-outline-secondary btn-sm"
@@ -242,12 +242,39 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
+        function noDelaySetInterval(func, interval) {
+            func;
+            return setInterval(function() {
+                setVal($("#market-show").html(), $(".interval .active").attr('id'))
+            }, interval);
+        }
+
+        function startSetInterval(market, interval) {
+            noDelaySetInterval(setVal(market, interval), 1000 * 20);
+        }
+
         $(".btn-group > .btn").click(function() {
             $(this).addClass("active").siblings().removeClass("active");
         });
 
-        function func() {
-            console.log("Ran")
+        function setVal(market, interval) {
+            var url = 'https://api1.binance.com/api/v3/klines?symbol=' + market + '&interval=' + interval + '&limit=50';
+
+            $.getJSON(url, function(response) {
+
+                let seriesData = [];
+                for (let i = 0; i < response.length; i++) {
+                    var element = response[i];
+                    seriesData.push({
+                        x: moment.tz(new Date(element[0]), 'Asia/Jakarta'),
+                        y: [element[1], element[2], element[3], element[4]]
+                    })
+                }
+
+                chart.updateSeries([{
+                    data: seriesData
+                }])
+            });
         }
 
         function changeEvent(e) {
@@ -261,14 +288,13 @@
             };
 
             $.ajax(options).done(function(options) {
-                console.log(options)
                 $('#trend-warn-info').html(options.trend_war_info)
                 $('#trend-info').html(options.trend_info)
                 $('#corr-warn-info').html(options.corr_warn_info)
                 $('#corr-info').html(options.corr_info)
-                setValue($(e).attr('id'), '1h')
             })
         }
+
 
 
         var settings = {
@@ -278,7 +304,6 @@
         };
 
         $.ajax(settings).done(function(response) {
-            console.log(response);
             for (let i = 0; i < response.length; i++) {
                 const element = response[i];
                 if (element.market == "BTCUSDT") {
@@ -387,14 +412,7 @@
             }
         };
         var dataexchange = [];
-        var settings = {
-            "url": "https://api1.binance.com/api/v1/exchangeInfo",
-            "method": "GET",
-            "timeout": 0,
-        };
-        $.ajax(settings).done(function(response) {
-            dataexchange = response
-        });
+
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
 
@@ -406,7 +424,11 @@
             document.getElementById('time_span_us').innerHTML = get_Date_us.format('YYYY-MM-DD HH:mm:ss');
             document.getElementById('time_span_eu').innerHTML = get_Date_eu.format('YYYY-MM-DD HH:mm:ss');
         }
-        setInterval(updateTime, 1000);
+
+        var updateTimes = setInterval(function() {
+            updateTime();
+        }, 1000);
+        startSetInterval($("#market-show").html(), $(".btn-group .active").attr('id'))
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
