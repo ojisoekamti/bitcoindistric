@@ -255,6 +255,8 @@
 
         $(".btn-group > .btn").click(function() {
             $(this).addClass("active").siblings().removeClass("active");
+            
+            setVal($("#market-show").html(), $(".interval .active").attr('id'))
         });
 
         function setVal(market, interval) {
@@ -295,6 +297,8 @@
                 $('#corr-warn-info').html(options.corr_warn_info)
                 $('#corr-info').html(options.corr_info)
             })
+            
+            setVal($("#market-show").html(), $(".interval .active").attr('id'))
         }
 
 
