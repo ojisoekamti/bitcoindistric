@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="float-end">
                                     <div class="btn-group" role="group" aria-label="First group">
-                                        <button type="button" id="1h" class="btn btn-outline-secondary btn-sm"
+                                        <button type="button" id="1h" class="btn btn-outline-secondary btn-sm active"
                                             value="1h">1H</button>
                                         <button type="button" id="1d" class="btn btn-outline-secondary btn-sm"
                                             value="1d">1D</button>
@@ -191,14 +191,14 @@
                             <span>Trend : <br><br></span>
                             <div class="pb-2">
                                 <div class="card card-chart bg-danger">
-                                    <div class="card-body">
+                                    <div class="card-body" id="trend-warn-info">
                                         {!! setting('site.trend_warning_info') !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="">
                                 <div class="card card-chart bg-success">
-                                    <div class="card-body">
+                                    <div class="card-body" id="trend-info">
                                         {!! setting('site.trend_info') !!}
                                     </div>
                                 </div>
@@ -208,14 +208,14 @@
                             <span>Correction : <br><br></span>
                             <div class="pb-2">
                                 <div class="card card-chart bg-danger">
-                                    <div class="card-body">
+                                    <div class="card-body" id="corr-warn-info">
                                         {!! setting('site.cor_warn_info') !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="">
                                 <div class="card card-chart bg-success">
-                                    <div class="card-body">
+                                    <div class="card-body" id="corr-info">
                                         {!! setting('site.cor_info') !!}
                                     </div>
                                 </div>
@@ -242,6 +242,35 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
+        $(".btn-group > .btn").click(function() {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        function func() {
+            console.log("Ran")
+        }
+
+        function changeEvent(e) {
+            $("#market-show").html($(e).attr('id'))
+            $(".dropdown-item").removeClass("active");
+            $(e).addClass("active").siblings().removeClass("active");
+            var options = {
+                "url": "{{ Request::url() }}/api/getexchangeprop?id=" + $(e).attr('id'),
+                "method": "GET",
+                "timeout": 0,
+            };
+
+            $.ajax(options).done(function(options) {
+                console.log(options)
+                $('#trend-warn-info').html(options.trend_war_info)
+                $('#trend-info').html(options.trend_info)
+                $('#corr-warn-info').html(options.corr_warn_info)
+                $('#corr-info').html(options.corr_info)
+                setValue($(e).attr('id'), '1h')
+            })
+        }
+
+
         var settings = {
             "url": "{{ Request::url() }}/api/getexchangeprops",
             "method": "GET",
@@ -252,14 +281,26 @@
             console.log(response);
             for (let i = 0; i < response.length; i++) {
                 const element = response[i];
-                if(element.market=="BTCUSDT"){
-                    $("#market").append(' <li><a class = "dropdown-item active" href="#" id="' + element.market + '" > ' + element.market + ' </a></li> ');
+                if (element.market == "BTCUSDT") {
+                    $("#market").append(
+                        '<li><a class = "dropdown-item active" onclick="changeEvent(this)" href="#" id="' +
+                        element.market +
+                        '" > ' + element.market + ' </a></li> ');
+
+                    $('#trend-warn-info').html(element.trend_war_info)
+                    $('#trend-info').html(element.trend_info)
+                    $('#corr-warn-info').html(element.corr_warn_info)
+                    $('#corr-info').html(element.corr_info)
                     continue;
                 }
-                $("#market").append(' <li><a class = "dropdown-item" href="#" id="' + element.market + '"  > ' + element.market + ' </a></li> ');
+                $("#market").append(
+                    '<li><a class = "dropdown-item" href="#" onclick="changeEvent(this)" id="' + element
+                    .market + '"  > ' +
+                    element.market + ' </a></li> ');
 
             }
         });
+
         //document.getElementById("market-show").innerHTML = "whatever";
         var options = {
             series: [{
@@ -366,25 +407,6 @@
             document.getElementById('time_span_eu').innerHTML = get_Date_eu.format('YYYY-MM-DD HH:mm:ss');
         }
         setInterval(updateTime, 1000);
-        setInterval(() => {
-            var url = '' //'https://api1.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=50';
-
-            $.getJSON(url, function(response) {
-
-                let seriesData = [];
-                for (let i = 0; i < response.length; i++) {
-                    var element = response[i];
-                    seriesData.push({
-                        x: moment.tz(new Date(element[0]), 'Asia/Jakarta'),
-                        y: [element[1], element[2], element[3], element[4]]
-                    })
-                }
-
-                chart.updateSeries([{
-                    data: seriesData
-                }])
-            });
-        }, 1000 * 20);
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->

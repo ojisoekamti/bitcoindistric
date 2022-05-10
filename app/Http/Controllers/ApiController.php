@@ -113,9 +113,9 @@ class ApiController extends Controller
     public function getexchangeprop(Request $request)
     {
 
-        $flights = ExhangeProperty::where('id', $request->id)
+        $flights = ExhangeProperty::where('market', $request->id)
             ->first();
-            
+
         return response()->json($flights);
     }
 }
