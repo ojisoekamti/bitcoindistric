@@ -258,7 +258,7 @@
         });
 
         function setVal(market, interval) {
-            console.log(market)
+            console.log(trim(market))
             var url = 'https://api1.binance.com/api/v3/klines?symbol=' + market + '&interval=' + interval + '&limit=50';
 
             $.getJSON(url, function(response) {
