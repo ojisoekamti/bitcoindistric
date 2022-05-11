@@ -314,7 +314,6 @@
             };
 
             $.ajax(options).done(function(options) {
-                console.log('data', options)
                 $('.warp-top').html(options.warp_top)
                 $('.warp-bot').html(options.warp_bot)
                 if (options.trend_war_info == 1) {
