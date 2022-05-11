@@ -18,12 +18,6 @@
             max-width: 1364px;
         }
 
-        .break {
-            background: #1c1c1c8c !important;
-            border-color: aliceblue;
-            border-width: 3px;
-            height: 60px;
-        }
 
         .bg-success {
             background: #00FF00 !important;
@@ -47,6 +41,14 @@
 
         .outline-danger {
             background: #a51b0b !important;
+            height: 60px;
+        }
+
+
+        .break {
+            background: #1c1c1c8c !important;
+            border-color: aliceblue;
+            border-width: 3px;
             height: 60px;
         }
 
