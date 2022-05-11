@@ -332,7 +332,7 @@
                     $('#corr-info').addClass("outline-success")
                 }
 
-                if (options.corr_info == 1) {
+                if (options.break == 1) {
                     $('#trend-warn-info').addClass("break")
                     $('#trend-info').addClass("break")
                     $('#corr-warn-info').addClass("break")
@@ -409,7 +409,7 @@
                 }
 
 
-                if (options.corr_info == 1) {
+                if (options.break == 1) {
                     $('#trend-warn-info').addClass("break")
                     $('#trend-info').addClass("break")
                     $('#corr-warn-info').addClass("break")
@@ -473,7 +473,7 @@
                     }
 
 
-                    if (options.corr_info == 1) {
+                    if (options.break == 1) {
                         $('#trend-warn-info').addClass("break")
                         $('#trend-info').addClass("break")
                         $('#corr-warn-info').addClass("break")
