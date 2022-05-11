@@ -19,8 +19,9 @@
         }
 
         .bg-success {
-            background: #60FF9F !important;
+            background: #00FF00 !important;
             color: black;
+            height: 60px;
         }
 
         img::before {
@@ -28,7 +29,18 @@
         }
 
         .bg-danger {
-            /* background: #F00090 !important; */
+            background: #ff0000 !important;
+            height: 60px;
+        }
+
+        .outline-success {
+            background: #008000 !important;
+            height: 60px;
+        }
+
+        .outline-danger {
+            background: #a51b0b !important;
+            height: 60px;
         }
 
         .card-chart {
@@ -130,7 +142,7 @@
         <div class="row p-2">
             <div class="col-9">
                 <div class="card card-chart">
-                    <div class="car-title">
+                    <div class="card-title">
                         <div class="row text-light p-4">
                             <div class="col-4">
                                 Time Indonesia : <span id="time_span"></span>
@@ -156,16 +168,16 @@
                                 </div>
                                 <div class="float-end">
                                     <div class="btn-group interval" role="group" aria-label="First group">
-                                        <button type="button" id="1h" class="btn btn-outline-secondary btn-sm active"
-                                            value="1h">1H</button>
-                                        <button type="button" id="1d" class="btn btn-outline-secondary btn-sm"
-                                            value="1d">1D</button>
-                                        <button type="button" id="3d" class="btn btn-outline-secondary btn-sm"
-                                            value="3d">3D</button>
-                                        <button type="button" id="1m" class="btn btn-outline-secondary btn-sm"
-                                            value="1m">1M</button>
-                                        <button type="button" id="1y" class="btn btn-outline-secondary btn-sm"
-                                            value="1y">1Y</button>
+                                        <button type="button" id="1m" class="btn btn-outline-secondary btn-sm active"
+                                            value="1m">1m</button>
+                                        <button type="button" id="5m" class="btn btn-outline-secondary btn-sm"
+                                            value="5m">5m</button>
+                                        <button type="button" id="15m" class="btn btn-outline-secondary btn-sm"
+                                            value="15m">15m</button>
+                                        <button type="button" id="30m" class="btn btn-outline-secondary btn-sm"
+                                            value="30m">30m</button>
+                                        <button type="button" id="1h" class="btn btn-outline-secondary btn-sm"
+                                            value="1h">1h</button>
                                     </div>
                                 </div>
                             </div>
@@ -173,15 +185,26 @@
                     </div>
                     <div class="card-body">
                         <div id="chart">
+                            &nbsp;
                         </div>
                     </div>
                 </div>
 
                 <div class="pt-2">
-                    <a href="{{ setting('site.ads_bottom_url') }}">
+                    <div class="card-body card-chart text-light">
+                        <marquee class="warp-top">
+                            <p>Lorem ipsum dolor Lorem ipsum dolor Lorem
+                                ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor!</p>
+                        </marquee>
+                        <marquee class="warp-bot">
+                            <p>Lorem ipsum dolor Lorem ipsum dolor Lorem
+                                ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor!</p>
+                        </marquee>
+                    </div>
+                    {{-- <a href="{{ setting('site.ads_bottom_url') }}">
                         <img src="storage/{{ setting('site.ads_bottom_image') }}" alt="..." class="img-fluid"
                             style="border-radius: 20px">
-                    </a>
+                    </a> --}}
                 </div>
             </div>
             <div class="col-3">
@@ -190,16 +213,14 @@
                         <div class="card-body">
                             <span>Trend : <br><br></span>
                             <div class="pb-2">
-                                <div class="card card-chart bg-danger">
-                                    <div class="card-body" id="trend-warn-info">
-                                        {!! setting('site.trend_warning_info') !!}
+                                <div class="card card-chart bg-danger outline-danger" id="trend-warn-info">
+                                    <div class="card-body">
                                     </div>
                                 </div>
                             </div>
                             <div class="">
-                                <div class="card card-chart bg-success">
-                                    <div class="card-body" id="trend-info">
-                                        {!! setting('site.trend_info') !!}
+                                <div class="card card-chart bg-success outline-success" id="trend-info">
+                                    <div class="card-body">
                                     </div>
                                 </div>
                             </div>
@@ -207,16 +228,14 @@
                         <div class="card-body">
                             <span>Correction : <br><br></span>
                             <div class="pb-2">
-                                <div class="card card-chart bg-danger">
-                                    <div class="card-body" id="corr-warn-info">
-                                        {!! setting('site.cor_warn_info') !!}
+                                <div class="card card-chart bg-danger outline-danger" id="corr-warn-info">
+                                    <div class="card-body">
                                     </div>
                                 </div>
                             </div>
                             <div class="">
-                                <div class="card card-chart bg-success">
-                                    <div class="card-body" id="corr-info">
-                                        {!! setting('site.cor_info') !!}
+                                <div class="card card-chart bg-success outline-success" id="corr-info">
+                                    <div class="card-body">
                                     </div>
                                 </div>
                             </div>
@@ -242,6 +261,11 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
+        function playSound(url) {
+            const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
+            audio.play();
+        }
+
         function noDelaySetInterval(func, interval) {
             func;
             return setInterval(function() {
@@ -250,17 +274,59 @@
         }
 
         function startSetInterval(market, interval) {
-            noDelaySetInterval(setVal(market, interval), 1000 * 20);
+            noDelaySetInterval(setVal(market, interval), 1000 * 10);
         }
 
         $(".btn-group > .btn").click(function() {
             $(this).addClass("active").siblings().removeClass("active");
-            
+
             setVal($("#market-show").html(), $(".interval .active").attr('id'))
         });
 
+
+
         function setVal(market, interval) {
-            console.log(market.trim())
+
+            var options = {
+                "url": "{{ Request::url() }}/api/getexchangeprop?id=" + market,
+                "method": "GET",
+                "timeout": 0,
+            };
+
+            $.ajax(options).done(function(options) {
+                console.log('data', options)
+                $('.warp-top').html(options.warp_top)
+                $('.warp-bot').html(options.warp_bot)
+                if (options.trend_war_info == 1) {
+                    $('#trend-warn-info').removeClass("outline-danger")
+                    playSound(url)
+                } else {
+                    $('#trend-warn-info').addClass("outline-danger")
+                }
+
+                if (options.trend_info == 1) {
+                    $('#trend-info').removeClass("outline-success")
+                    playSound(url)
+                } else {
+                    $('#trend-info').addClass("outline-success")
+                }
+
+                if (options.corr_warn_info == 1) {
+                    $('#corr-warn-info').removeClass("outline-danger")
+                    playSound(url)
+                } else {
+                    $('#corr-warn-info').addClass("outline-danger")
+                }
+
+                if (options.corr_info == 1) {
+                    $('#corr-info').removeClass("outline-success")
+                    playSound(url)
+                } else {
+                    $('#corr-info').addClass("outline-success")
+                }
+
+
+            })
             var url = 'https://api1.binance.com/api/v3/klines?symbol=' + market.trim() + '&interval=' + interval +
                 '&limit=50';
 
@@ -279,6 +345,7 @@
                     data: seriesData
                 }])
             });
+
         }
 
         function changeEvent(e) {
@@ -292,12 +359,38 @@
             };
 
             $.ajax(options).done(function(options) {
-                $('#trend-warn-info').html(options.trend_war_info)
-                $('#trend-info').html(options.trend_info)
-                $('#corr-warn-info').html(options.corr_warn_info)
-                $('#corr-info').html(options.corr_info)
+
+                $('.warp-top').html(options.warp_top)
+                $('.warp-bot').html(options.warp_bot)
+                if (options.trend_war_info == 1) {
+                    $('#trend-warn-info').removeClass("outline-danger")
+                    playSound(url)
+                } else {
+                    $('#trend-warn-info').addClass("outline-danger")
+                }
+
+                if (options.trend_info == 1) {
+                    $('#trend-info').removeClass("outline-success")
+                    playSound(url)
+                } else {
+                    $('#trend-info').addClass("outline-success")
+                }
+
+                if (options.corr_warn_info == 1) {
+                    $('#corr-warn-info').removeClass("outline-danger")
+                    playSound(url)
+                } else {
+                    $('#corr-warn-info').addClass("outline-danger")
+                }
+
+                if (options.corr_info == 1) {
+                    $('#corr-info').removeClass("outline-success")
+                    playSound(url)
+                } else {
+                    $('#corr-info').addClass("outline-success")
+                }
             })
-            
+
             setVal($("#market-show").html(), $(".interval .active").attr('id'))
         }
 
@@ -318,10 +411,35 @@
                         element.market +
                         '" > ' + element.market + ' </a></li> ');
 
-                    $('#trend-warn-info').html(element.trend_war_info)
-                    $('#trend-info').html(element.trend_info)
-                    $('#corr-warn-info').html(element.corr_warn_info)
-                    $('#corr-info').html(element.corr_info)
+                    $('.warp-top').html(options.warp_top)
+                    $('.warp-bot').html(options.warp_bot)
+                    if (options.trend_war_info == 1) {
+                        $('#trend-warn-info').removeClass("outline-danger")
+                        playSound(url)
+                    } else {
+                        $('#trend-warn-info').addClass("outline-danger")
+                    }
+
+                    if (options.trend_info == 1) {
+                        $('#trend-info').removeClass("outline-success")
+                        playSound(url)
+                    } else {
+                        $('#trend-info').addClass("outline-success")
+                    }
+
+                    if (options.corr_warn_info == 1) {
+                        $('#corr-warn-info').removeClass("outline-danger")
+                        playSound(url)
+                    } else {
+                        $('#corr-warn-info').addClass("outline-danger")
+                    }
+
+                    if (options.corr_info == 1) {
+                        $('#corr-info').removeClass("outline-success")
+                        playSound(url)
+                    } else {
+                        $('#corr-info').addClass("outline-success")
+                    }
                     continue;
                 }
                 $("#market").append(
