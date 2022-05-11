@@ -294,7 +294,7 @@
         }
 
         function startSetInterval(market, interval) {
-            noDelaySetInterval(setVal(market, interval), 1000 * 10);
+            noDelaySetInterval(setVal(market, interval), 1000);
         }
 
         $(".btn-group > .btn").click(function() {
