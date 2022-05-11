@@ -18,6 +18,13 @@
             max-width: 1364px;
         }
 
+        .break {
+            background: #1c1c1c8c !important;
+            border-color: aliceblue;
+            border-width: 3px;
+            height: 60px;
+        }
+
         .bg-success {
             background: #00FF00 !important;
             color: black;
@@ -325,6 +332,17 @@
                     $('#corr-info').addClass("outline-success")
                 }
 
+                if (options.corr_info == 1) {
+                    $('#trend-warn-info').addClass("break")
+                    $('#trend-info').addClass("break")
+                    $('#corr-warn-info').addClass("break")
+                    $('#corr-info').addClass("break")
+                } else {
+                    $('#trend-warn-info').removeClass("break")
+                    $('#trend-info').removeClass("break")
+                    $('#corr-warn-info').removeClass("break")
+                    $('#corr-info').removeClass("break")
+                }
 
             })
             var url = 'https://api1.binance.com/api/v3/klines?symbol=' + market.trim() + '&interval=' + interval +
@@ -389,6 +407,19 @@
                 } else {
                     $('#corr-info').addClass("outline-success")
                 }
+
+
+                if (options.corr_info == 1) {
+                    $('#trend-warn-info').addClass("break")
+                    $('#trend-info').addClass("break")
+                    $('#corr-warn-info').addClass("break")
+                    $('#corr-info').addClass("break")
+                } else {
+                    $('#trend-warn-info').removeClass("break")
+                    $('#trend-info').removeClass("break")
+                    $('#corr-warn-info').removeClass("break")
+                    $('#corr-info').removeClass("break")
+                }
             })
 
             setVal($("#market-show").html(), $(".interval .active").attr('id'))
@@ -439,6 +470,19 @@
                         playSound(url)
                     } else {
                         $('#corr-info').addClass("outline-success")
+                    }
+
+
+                    if (options.corr_info == 1) {
+                        $('#trend-warn-info').addClass("break")
+                        $('#trend-info').addClass("break")
+                        $('#corr-warn-info').addClass("break")
+                        $('#corr-info').addClass("break")
+                    } else {
+                        $('#trend-warn-info').removeClass("break")
+                        $('#trend-info').removeClass("break")
+                        $('#corr-warn-info').removeClass("break")
+                        $('#corr-info').removeClass("break")
                     }
                     continue;
                 }
