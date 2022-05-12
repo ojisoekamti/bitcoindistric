@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Intervention\Image\Gd\Encoder;
 use App\ExhangeProperty;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ApiController extends Controller
 {
     /**
@@ -115,6 +117,10 @@ class ApiController extends Controller
 
         $flights = ExhangeProperty::where('market', $request->id)
             ->first();
+        if (isEmpty($flights)) {
+            $flights = ExhangeProperty::where('description', $request->id)
+                ->first();
+        }
 
         return response()->json($flights);
     }
