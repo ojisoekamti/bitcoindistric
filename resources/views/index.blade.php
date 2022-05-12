@@ -501,7 +501,7 @@
                 $("#market").append(
                     '<li><a class = "dropdown-item" href="#" onclick="changeEvent(this)" id="' + element
                     .market + '"  > ' +
-                    element.market + ' </a></li> ');
+                    element.description + ' </a></li> ');
 
             }
         });
