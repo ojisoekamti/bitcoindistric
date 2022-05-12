@@ -452,7 +452,7 @@
                     $("#market").append(
                         '<li><a class = "dropdown-item active" onclick="changeEvent(this)" href="#" id="' +
                         element.market +
-                        '" > ' + element.market + ' </a></li> ');
+                        '" > ' + element.description + ' </a></li> ');
 
                     $('.warp-top').html(options.warp_top)
                     $('.warp-bot').html(options.warp_bot)
