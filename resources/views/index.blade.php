@@ -308,7 +308,7 @@
         function setVal(market, interval) {
 
             var options = {
-                "url": "{{ Request::url() }}/api/getexchangeprop?id=" + $('.dropdown-menu .active').html().trim(),
+                "url": "{{ Request::url() }}/api/getexchangeprop?id=" + $('.dropdown-menu .active').html(),
                 "method": "GET",
                 "timeout": 0,
             };
@@ -383,7 +383,7 @@
             $(".dropdown-item").removeClass("active");
             $(e).addClass("active").siblings().removeClass("active");
             var options = {
-                "url": "{{ Request::url() }}/api/getexchangeprop?id=" + $('.dropdown-menu .active').html().trim(),
+                "url": "{{ Request::url() }}/api/getexchangeprop?id=" + $('.dropdown-menu .active').html(),
                 "method": "GET",
                 "timeout": 0,
             };
