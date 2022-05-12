@@ -448,7 +448,7 @@
         $.ajax(settings).done(function(response) {
             for (let i = 0; i < response.length; i++) {
                 const element = response[i];
-                if (element.market == "BTCUSDT") {
+                if (element.id == "6") {
                     $("#market").append(
                         '<li><a class = "dropdown-item active" onclick="changeEvent(this)" href="#" id="' +
                         element.market +
