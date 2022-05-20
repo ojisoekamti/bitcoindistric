@@ -262,7 +262,7 @@
 
                     <div class="card card-chart">
                         <div class="card-body" style="padding: 10px;">
-                            <iframe width="100%" src="{{ setting('site.youtube_frame') }}?autoplay=1"
+                            <iframe width="100%" src="{{ setting('admin.youtube_frame') }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
@@ -307,7 +307,6 @@
             };
 
             $.ajax(options).done(function(options) {
-                console.log(options);
                 $('.warp-top').html(options.warp_top)
                 $('.warp-bot').html(options.warp_bot)
                 if (options.trend_war_info == 1) {
