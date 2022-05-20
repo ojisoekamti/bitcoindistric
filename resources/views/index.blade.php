@@ -602,7 +602,23 @@
             attributes: true
         }
 
-        var context = new AudioContext();
+        function callback(mutationList, observer) {
+            mutationList.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
+                    audio.play();
+                }
+            })
+        }
+
+        const observer = new MutationObserver(callback)
+        observer.observe(btn, opt)
+
+        
+        const btn = document.querySelector('.outline-danger')
+        const opt = {
+            attributes: true
+        }
 
         function callback(mutationList, observer) {
             mutationList.forEach(function(mutation) {
