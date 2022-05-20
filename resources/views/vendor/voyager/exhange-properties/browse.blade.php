@@ -258,6 +258,8 @@
     @endif
     <script>
         $(document).ready(function() {
+            
+            $('.toggleswitch').bootstrapToggle();
             @if (!$dataType->server_side)
                 var table = $('#dataTable').DataTable({!! json_encode(
     array_merge(
