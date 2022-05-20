@@ -596,8 +596,10 @@
             updateTime();
         }, 1000);
         startSetInterval($("#market-show").html(), $(".btn-group .active").attr('id'))
-
-        const btn = document.querySelector('.outline-success')
+        const btn = document.querySelector('#trend-warn-info')
+        const btn2 = document.querySelector('#trend-info')
+        const btn3 = document.querySelector('#corr-warn-info')
+        const btn4 = document.querySelector('#corr-info')
         const opt = {
             attributes: true
         }
@@ -614,23 +616,20 @@
         const observer = new MutationObserver(callback)
         observer.observe(btn, opt)
 
+        observer.observe(btn2, opt)
+        observer.observe(btn2, opt)
+        observer.observe(btn3, opt)
+        observer.observe(btn4, opt)
+        // function callback(mutationList, observer) {
+        //     mutationList.forEach(function(mutation) {
+        //         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        //             const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
+        //             audio.play();
+        //         }
+        //     })
+        // }
 
-        const btn2 = document.querySelector('.outline-danger')
-        const opt2 = {
-            attributes: true
-        }
-
-        function callback(mutationList, observer) {
-            mutationList.forEach(function(mutation) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
-                    audio.play();
-                }
-            })
-        }
-
-        const observer2 = new MutationObserver(callback)
-        observer2.observe(btn2, opt2)
+        // const observer2 = new MutationObserver(callback)
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
