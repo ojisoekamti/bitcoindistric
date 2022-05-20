@@ -371,7 +371,7 @@
                     data: seriesData
                 }])
             });
-        }, 1000 * 10);
+        }, 1000 * 5);
 
         function changeEvent(e) {
             $("#market-show").html($(e).attr('id'))
