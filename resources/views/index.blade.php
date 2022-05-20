@@ -281,16 +281,6 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        function playSound() {
-            $(document).ready(function() {
-                console.log("ready!");
-                const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
-                audio.play();
-
-            });
-            console.log("test")
-        }
-
         function noDelaySetInterval(func, interval) {
             //func;
             return setInterval(function() {
@@ -299,7 +289,7 @@
         }
 
         function startSetInterval(market, interval) {
-            noDelaySetInterval("", 1000 * 1);
+            noDelaySetInterval("", 1000 * 5);
         }
 
         $(".btn-group > .btn").click(function() {
@@ -609,7 +599,8 @@
         function callback(mutationList, observer) {
             mutationList.forEach(function(mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    playSound()
+                    const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
+                    audio.play();
                 }
             })
         }
