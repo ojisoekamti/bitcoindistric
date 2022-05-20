@@ -350,9 +350,10 @@
         }
 
         var intervalJsonSet = setInterval(() => {
-
-            var url = 'https://api1.binance.com/api/v3/klines?symbol=' + $("#market-show").html() + '&interval=' +
-                $(".interval .active").attr('id') +
+            var market = $("#market-show").html();
+            var id = $(".interval .active").attr('id');
+            var url = 'https://api1.binance.com/api/v3/klines?symbol=' + market.trim() + '&interval=' +
+                id +
                 '&limit=50';
 
             $.getJSON(url, function(response) {
