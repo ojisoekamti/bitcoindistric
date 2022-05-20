@@ -281,20 +281,22 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        function playSound(url) {
+        function playSound() {
             const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
             audio.play();
+            
+            console.log("test")
         }
 
         function noDelaySetInterval(func, interval) {
-            func;
+            //func;
             return setInterval(function() {
                 setVal($("#market-show").html(), $(".interval .active").attr('id'))
             }, interval);
         }
 
         function startSetInterval(market, interval) {
-            noDelaySetInterval(setVal(market, interval), 1000 * 5);
+            noDelaySetInterval("", 1000 * 10);
         }
 
         $(".btn-group > .btn").click(function() {
@@ -302,8 +304,6 @@
 
             setVal($("#market-show").html(), $(".interval .active").attr('id'))
         });
-
-
 
         function setVal(market, interval) {
 
@@ -318,28 +318,24 @@
                 $('.warp-bot').html(options.warp_bot)
                 if (options.trend_war_info == 1) {
                     $('#trend-warn-info').removeClass("outline-danger")
-                    playSound(url)
                 } else {
                     $('#trend-warn-info').addClass("outline-danger")
                 }
 
                 if (options.trend_info == 1) {
                     $('#trend-info').removeClass("outline-success")
-                    playSound(url)
                 } else {
                     $('#trend-info').addClass("outline-success")
                 }
 
                 if (options.corr_warn_info == 1) {
                     $('#corr-warn-info').removeClass("outline-danger")
-                    playSound(url)
                 } else {
                     $('#corr-warn-info').addClass("outline-danger")
                 }
 
                 if (options.corr_info == 1) {
                     $('#corr-info').removeClass("outline-success")
-                    playSound(url)
                 } else {
                     $('#corr-info').addClass("outline-success")
                 }
@@ -394,28 +390,24 @@
                 $('.warp-bot').html(options.warp_bot)
                 if (options.trend_war_info == 1) {
                     $('#trend-warn-info').removeClass("outline-danger")
-                    playSound(url)
                 } else {
                     $('#trend-warn-info').addClass("outline-danger")
                 }
 
                 if (options.trend_info == 1) {
                     $('#trend-info').removeClass("outline-success")
-                    playSound(url)
                 } else {
                     $('#trend-info').addClass("outline-success")
                 }
 
                 if (options.corr_warn_info == 1) {
                     $('#corr-warn-info').removeClass("outline-danger")
-                    playSound(url)
                 } else {
                     $('#corr-warn-info').addClass("outline-danger")
                 }
 
                 if (options.corr_info == 1) {
                     $('#corr-info').removeClass("outline-success")
-                    playSound(url)
                 } else {
                     $('#corr-info').addClass("outline-success")
                 }
@@ -458,28 +450,24 @@
                     $('.warp-bot').html(options.warp_bot)
                     if (options.trend_war_info == 1) {
                         $('#trend-warn-info').removeClass("outline-danger")
-                        playSound(url)
                     } else {
                         $('#trend-warn-info').addClass("outline-danger")
                     }
 
                     if (options.trend_info == 1) {
                         $('#trend-info').removeClass("outline-success")
-                        playSound(url)
                     } else {
                         $('#trend-info').addClass("outline-success")
                     }
 
                     if (options.corr_warn_info == 1) {
                         $('#corr-warn-info').removeClass("outline-danger")
-                        playSound(url)
                     } else {
                         $('#corr-warn-info').addClass("outline-danger")
                     }
 
                     if (options.corr_info == 1) {
                         $('#corr-info').removeClass("outline-success")
-                        playSound(url)
                     } else {
                         $('#corr-info').addClass("outline-success")
                     }
@@ -609,6 +597,22 @@
             updateTime();
         }, 1000);
         startSetInterval($("#market-show").html(), $(".btn-group .active").attr('id'))
+
+        const btn = document.querySelector('.outline-success')
+        const opt = {
+            attributes: true
+        }
+
+        function callback(mutationList, observer) {
+            mutationList.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    playSound()
+                }
+            })
+        }
+
+        const observer = new MutationObserver(callback)
+        observer.observe(btn, opt)
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
