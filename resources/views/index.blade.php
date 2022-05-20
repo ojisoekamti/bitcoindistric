@@ -289,7 +289,7 @@
         }
 
         function startSetInterval(market, interval) {
-            noDelaySetInterval("", 1000 * 5);
+            noDelaySetInterval("", 1000);
         }
 
         $(".btn-group > .btn").click(function() {
@@ -346,7 +346,13 @@
                 }
 
             })
-            var url = 'https://api1.binance.com/api/v3/klines?symbol=' + market.trim() + '&interval=' + interval +
+
+        }
+
+        var intervalJsonSet = setInterval(() => {
+
+            var url = 'https://api1.binance.com/api/v3/klines?symbol=' + $("#market-show").html() + '&interval=' +
+                $(".interval .active").attr('id') +
                 '&limit=50';
 
             $.getJSON(url, function(response) {
@@ -364,8 +370,7 @@
                     data: seriesData
                 }])
             });
-
-        }
+        }, 1000 * 10);
 
         function changeEvent(e) {
             $("#market-show").html($(e).attr('id'))
@@ -597,12 +602,12 @@
         }
 
         var context = new AudioContext();
+
         function callback(mutationList, observer) {
             mutationList.forEach(function(mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                     const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
                     audio.play();
-
                 }
             })
         }
