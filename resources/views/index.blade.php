@@ -614,9 +614,9 @@
         const observer = new MutationObserver(callback)
         observer.observe(btn, opt)
 
-        
-        const btn = document.querySelector('.outline-danger')
-        const opt = {
+
+        const btn2 = document.querySelector('.outline-danger')
+        const opt2 = {
             attributes: true
         }
 
@@ -629,8 +629,8 @@
             })
         }
 
-        const observer = new MutationObserver(callback)
-        observer.observe(btn, opt)
+        const observer2 = new MutationObserver(callback)
+        observer2.observe(btn2, opt2)
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
