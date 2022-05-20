@@ -118,20 +118,20 @@
                                         @php
                                             //dd($data);
                                             
-    // "id" => 11
-    // "market" => "BTCUSDT"
-    // "trend_info" => "0"
-    // "trend_war_info" => "0"
-    // "corr_info" => "0"
-    // "corr_warn_info" => "0"
-    // "created_at" => "2022-05-12 04:01:48"
-    // "updated_at" => "2022-05-12 04:01:48"
-    // "deleted_at" => null
-    // "updated_by" => 1
-    // "warp_top" => null
-    // "warp_bot" => null
-    // "break" => "0"
-    // "description" => "BTCUSDT II"
+                                            // "id" => 11
+                                            // "market" => "BTCUSDT"
+                                            // "trend_info" => "0"
+                                            // "trend_war_info" => "0"
+                                            // "corr_info" => "0"
+                                            // "corr_warn_info" => "0"
+                                            // "created_at" => "2022-05-12 04:01:48"
+                                            // "updated_at" => "2022-05-12 04:01:48"
+                                            // "deleted_at" => null
+                                            // "updated_by" => 1
+                                            // "warp_top" => null
+                                            // "warp_bot" => null
+                                            // "break" => "0"
+                                            // "description" => "BTCUSDT II"
                                         @endphp
                                         <tr>
                                             @if ($showCheckboxColumn)
@@ -142,34 +142,43 @@
                                                 </td>
                                             @endif
                                             <td>
-                                                {{$data->market}}
+                                                {{ $data->market }}
                                             </td>
                                             <td>
-                                                {{$data->description}}
+                                                {{ $data->description }}
                                             </td>
                                             <td>
-                                                {{$data->trend_info}}
+                                                <div class="toggle btn btn-primary" data-toggle="toggle"
+                                                    style="width: 68.3125px; height: 29px;"><input type="checkbox"
+                                                        name="trend_info" class="toggleswitch" data-on="On"
+                                                        data-off="Off">
+                                                    <div class="toggle-group"><label
+                                                            class="btn btn-primary toggle-on">On</label><label
+                                                            class="btn btn-default active toggle-off">Off</label><span
+                                                            class="toggle-handle btn btn-default"></span></div>
+                                                </div>
+                                                {{ $data->trend_info }}
                                             </td>
                                             <td>
-                                                {{$data->trend_war_info}}
+                                                {{ $data->trend_war_info }}
                                             </td>
                                             <td>
-                                                {{$data->corr_info}}
+                                                {{ $data->corr_info }}
                                             </td>
                                             <td>
-                                                {{$data->corr_warn_info}}
+                                                {{ $data->corr_warn_info }}
                                             </td>
                                             <td>
-                                                {{$data->updated_by}}
+                                                {{ $data->updated_by }}
                                             </td>
                                             <td>
-                                                {{$data->warp_top}}
+                                                {{ $data->warp_top }}
                                             </td>
                                             <td>
-                                                {{$data->warp_bot}}
+                                                {{ $data->warp_bot }}
                                             </td>
                                             <td>
-                                                {{$data->break}}
+                                                {{ $data->break }}
                                             </td>
                                             <td class="no-sort no-click bread-actions">
                                                 @foreach ($actions as $action)
@@ -282,8 +291,9 @@
 
         var deleteFormAction;
         $('td').on('click', '.delete', function(e) {
-            $('#delete_form')[0].action = '{{ route('voyager.' . $dataType->slug . '.destroy', '__id') }}'.replace(
-                '__id', $(this).data('id'));
+            $('#delete_form')[0].action = '{{ route('voyager.' . $dataType->slug . '.destroy', '__id') }}'
+                .replace(
+                    '__id', $(this).data('id'));
             $('#delete_modal').modal('show');
         });
 
@@ -302,11 +312,11 @@
                     if ($(this).prop('checked')) {
                         $('#dataTable').before(
                             '<a id="redir" href="{{ route('voyager.' . $dataType->slug . '.index', array_merge($params, ['showSoftDeleted' => 1]), true) }}"></a>'
-                            );
+                        );
                     } else {
                         $('#dataTable').before(
                             '<a id="redir" href="{{ route('voyager.' . $dataType->slug . '.index', array_merge($params, ['showSoftDeleted' => 0]), true) }}"></a>'
-                            );
+                        );
                     }
 
                     $('#redir')[0].click();
