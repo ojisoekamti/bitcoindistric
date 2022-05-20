@@ -599,8 +599,10 @@
         function callback(mutationList, observer) {
             mutationList.forEach(function(mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
-                    audio.play();
+                    // const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
+                    // audio.play();
+                    <iframe src="ttps://bitcoindisctrict.id/ding.mp3" allow="autoplay">
+
                 }
             })
         }
