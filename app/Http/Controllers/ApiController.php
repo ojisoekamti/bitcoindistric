@@ -106,22 +106,31 @@ class ApiController extends Controller
 
     public function getexchangeprops()
     {
-        $flights = ExhangeProperty::orderBy('market')
+        $exchangedata = ExhangeProperty::orderBy('market')
             ->get();
 
-        return response()->json($flights);
+        return response()->json($exchangedata);
     }
 
     public function getexchangeprop(Request $request)
     {
 
-        $flights = ExhangeProperty::where('market', $request->id)
+        $exchangedata = ExhangeProperty::where('market', $request->id)
             ->first();
-        if (isEmpty($flights)) {
-            $flights = ExhangeProperty::where('description', $request->id)
+        if (isEmpty($exchangedata)) {
+            $exchangedata = ExhangeProperty::where('description', $request->id)
                 ->first();
         }
 
-        return response()->json($flights);
+        return response()->json($exchangedata);
+    }
+
+
+    public function updateStatus(Request $request)
+    {
+
+        ExhangeProperty::where('id', $request->id)
+            ->update([$request->column => $request->status]);
+        return response()->json($request);
     }
 }

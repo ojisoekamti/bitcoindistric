@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('index', 'App\Http\Controllers\ApiController@index');
 Route::get('/getexchangeprops', 'App\Http\Controllers\ApiController@getexchangeprops');
 Route::get('/getexchangeprop', 'App\Http\Controllers\ApiController@getexchangeprop');
+Route::post('/updatestatus', 'App\Http\Controllers\ApiController@updateStatus');

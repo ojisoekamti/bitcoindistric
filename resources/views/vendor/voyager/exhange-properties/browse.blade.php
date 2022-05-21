@@ -148,28 +148,24 @@
                                                 {{ $data->description }}
                                             </td>
                                             <td>
-                                                <div class="toggle btn btn-primary" data-toggle="toggle"
-                                                    style="width: 68.3125px; height: 29px;"><input type="checkbox"
-                                                        name="trend_info" class="toggleswitch" data-on="On"
-                                                        data-off="Off">
-                                                    <div class="toggle-group"><label
-                                                            class="btn btn-primary toggle-on">On</label><label
-                                                            class="btn btn-default active toggle-off">Off</label><span
-                                                            class="toggle-handle btn btn-default"></span></div>
-                                                </div>
-                                                {{ $data->trend_info }}
+                                                <button
+                                                    class="btn-toggle btn {{ $data->trend_info ? 'btn-success' : '' }}"
+                                                    id="{{ 'trend_info-' . $data->id . '-' . $data->trend_info }}">{{ $data->trend_info ? 'ON' : 'OFF' }}</button>
                                             </td>
                                             <td>
-                                                {{ $data->trend_war_info }}
+                                                <button
+                                                    class="btn-toggle btn {{ $data->trend_war_info ? 'btn-success' : '' }}"
+                                                    id="{{ 'trend_war_info-' . $data->id . '-' . $data->trend_war_info }}">{{ $data->trend_war_info ? 'ON' : 'OFF' }}</button>
                                             </td>
                                             <td>
-                                                {{ $data->corr_info }}
+                                                <button
+                                                    class="btn-toggle btn {{ $data->corr_info ? 'btn-success' : '' }}"
+                                                    id="{{ 'corr_info-' . $data->id . '-' . $data->corr_info }}">{{ $data->corr_info ? 'ON' : 'OFF' }}</button>
                                             </td>
                                             <td>
-                                                {{ $data->corr_warn_info }}
-                                            </td>
-                                            <td>
-                                                {{ $data->updated_by }}
+                                                <button
+                                                    class="btn-toggle btn {{ $data->corr_warn_info ? 'btn-success' : '' }}"
+                                                    id="{{ 'corr_warn_info-' . $data->id . '-' . $data->corr_warn_info }}">{{ $data->corr_warn_info ? 'ON' : 'OFF' }}</button>
                                             </td>
                                             <td>
                                                 {{ $data->warp_top }}
@@ -178,7 +174,8 @@
                                                 {{ $data->warp_bot }}
                                             </td>
                                             <td>
-                                                {{ $data->break }}
+                                                <button class="btn-toggle btn {{ $data->break ? 'btn-success' : '' }}"
+                                                    id="{{ 'break-' . $data->id . '-' . $data->break }}">{{ $data->break ? 'ON' : 'OFF' }}</button>
                                             </td>
                                             <td class="no-sort no-click bread-actions">
                                                 @foreach ($actions as $action)
@@ -257,9 +254,46 @@
         <script src="{{ voyager_asset('lib/js/dataTables.responsive.min.js') }}"></script>
     @endif
     <script>
+        $('.btn-toggle').click(function() {
+            var idattr = this.id
+            console.log(idattr);
+            idattr = idattr.split("-")
+
+            const elementattr = document.getElementById(this.id);
+            elementattr.id = idattr[0] + "-" + idattr[1] + "-" + ((idattr[2] ==
+                1) ? 0 : 1);
+            elementattr.innerHTML = ((idattr[2] == 1) ? "OFF" : "ON");
+
+            elementattr.classList.toggle("btn-success");
+
+            var formdata = new FormData();
+            formdata.append("column", idattr[0]);
+            formdata.append("id", idattr[1]);
+            formdata.append("status", (idattr[2] == 1) ? 0 : 1);
+
+            var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            };
+
+            fetch("http://bitcoindisctrict.test/api/updatestatus", requestOptions)
+                .then(response => response.text())
+                .then(result => {})
+                .catch(error => {
+                    var idattr = this.id
+                    idattr = idattr.split("-")
+                    console.log(((idattr[2] == 1) ? 0 : 1))
+
+                    const elementattr = document.getElementById(this.id);
+                    elementattr.id = idattr[0] + "-" + idattr[1] + "-" + ((idattr[2] ==
+                        1) ? 0 : 1);
+                    elementattr.innerHTML = ((idattr[2] == 1) ? "OFF" : "ON");
+
+                    elementattr.classList.toggle("btn-success");
+                });
+        });
         $(document).ready(function() {
-            
-            $('.toggleswitch').bootstrapToggle();
             @if (!$dataType->server_side)
                 var table = $('#dataTable').DataTable({!! json_encode(
     array_merge(
