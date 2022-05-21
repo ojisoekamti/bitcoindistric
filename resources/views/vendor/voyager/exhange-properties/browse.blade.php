@@ -277,7 +277,7 @@
                 redirect: 'follow'
             };
 
-            fetch("http://bitcoindisctrict.test/api/updatestatus", requestOptions)
+            fetch("https://bitcoindisctrict.test/api/updatestatus", requestOptions)
                 .then(response => response.text())
                 .then(result => {})
                 .catch(error => {
