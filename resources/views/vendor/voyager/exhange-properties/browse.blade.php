@@ -277,7 +277,7 @@
                 redirect: 'follow'
             };
 
-            fetch("https://bitcoindisctrict.id/api/updatestatus", requestOptions)
+            fetch("{{ Request::url() }}/api/updatestatus", requestOptions)
                 .then(response => response.text())
                 .then(result => {})
                 .catch(error => {
