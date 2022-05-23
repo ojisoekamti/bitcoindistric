@@ -277,7 +277,7 @@
                 redirect: 'follow'
             };
 
-            fetch("{{ Request::url() }}/api/updatestatus", requestOptions)
+            fetch("{{ url() }}/api/updatestatus", requestOptions)
                 .then(response => response.text())
                 .then(result => {})
                 .catch(error => {
