@@ -23,4 +23,5 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-Route::resource('/', HomeController::class);
+Route::get('/', [HomeController::class, 'login']);
+Route::post('/login', [HomeController::class, 'postLogin']);
