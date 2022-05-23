@@ -133,7 +133,7 @@
 
 <body>
     <!-- Optional JavaScript; choose one of the two! -->
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="v5_3604"></div>
         <div class="v5_3606"></div>
