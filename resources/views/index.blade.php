@@ -607,7 +607,7 @@
         function callback(mutationList, observer) {
             mutationList.forEach(function(mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    const audio = new Audio('https://bitcoindisctrict.id/ding.mp3');
+                    const audio = new Audio('{{url("/")}}/ding.mp3');
                     audio.play();
                 }
             })
