@@ -35,12 +35,16 @@
         }
 
         .outline-success {
-            background: #008000 !important;
+            background: #00800000 !important;
+            border-color: #00FF00 !important;
+            border-width: 3px;
             height: 60px;
         }
 
         .outline-danger {
-            background: #a51b0b !important;
+            background: #a51a0b00 !important;
+            border-color: #ff0000 !important;
+            border-width: 3px;
             height: 60px;
         }
 
