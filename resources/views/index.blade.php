@@ -293,7 +293,7 @@
         }
 
         function startSetInterval(market, interval) {
-            noDelaySetInterval("", 1000);
+            noDelaySetInterval("", 500);
         }
 
         $(".btn-group > .btn").click(function() {
